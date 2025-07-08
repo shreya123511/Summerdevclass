@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Coffee Website</title>
+<style>
+  /* Reset and base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin:0; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #d6c8b4;
+    color: #3a2f20;
+    line-height: 1.5;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  button {
+    cursor: pointer;
+  }
+  /* Container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  /* Header */
+  header {
+    background: #12121422;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    background-color: rgba(29, 27, 26, 0.9);
+    z-index: 10;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    padding: 0 15px;
+  }
+  .nav-logo {
+    font-weight: 900;
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 24px;
+  }
+  nav ul li {
+    font-size: 0.9rem;
+  }
+  nav ul li a:hover {
+    border-bottom: 2px solid #d6c8b4;
+  }
+  .nav-search {
+    font-size: 18px;
+    cursor: pointer;
+    user-select:none;
+    color: #f0ead8cc;
+  }
+  /* Hero */
+  .hero {
+    position: relative;
+    background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2abcc0c4-c3cf-40a5-8039-a266ce1b271d.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 4rem 2rem 6rem;
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 30px auto 40px;
+    border-radius: 10px;
+    box-shadow: 0 16px 30px rgb(0 0 0 / 0.35);
+  }
+  .hero-content {
+    max-width: 480px;
+  }
+  .hero-content h1 {
+    font-size: 2.9rem;
+    line-height: 1.1;
+    font-weight: 900;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+  }
+  .hero-content p {
+    font-weight: 600;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.45);
+  }
+  .hero-button {
+    background: #fff;
+    color: #3a2f20;
+    border: none;
+    padding: 10px 28px;
+    font-weight: 700;
+    border-radius: 30px;
+    box-shadow: 1px 3px 10px rgb(0 0 0 / 0.4);
+    transition: background-color 0.3s ease;
+  }
+  .hero-button:hover {
+    background: #d6c8b4;
+  }
+
+  /* Icons row below hero */
+  .icon-row {
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-around;
+    gap: 28px;
+  }
+  .icon-card {
+    flex: 1;
+    max-width: 150px;
+    text-align: center;
+    color: #5b503f;
+  }
+  .icon-card svg {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 8px;
+    fill: #5b503f;
+    opacity: 0.8;
+  }
+  .icon-card span {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+  
+  /* Section Titles */
+  .section-title {
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 1.25rem;
+  }
+  /* Cards slider container */
+  .slider-container {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    background-color: #f1f0ec;
+    padding: 40px 25px;
+    border-radius: 10px;
+    box-shadow: inset 4px 6px 13px rgb(0 0 0 / 0.05);
+  }
+  .slider-wrapper {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+  .slider-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  /* Card */
+  .card {
+    flex: 0 0 220px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 6px 13px rgb(87 83 81 / 0.15);
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+    position: relative;
+  }
+  .card-img-container {
+    border-radius: 14px 14px 0 0;
+    overflow: hidden;
+    height: 160px;
+  }
+  .card img {
+    width: 100%;
+    object-fit: cover;
+    height: 160px;
+    display: block;
+  }
+  .card-fav {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 20px;
+    height: 20px;
+    fill: transparent;
+    stroke: #b49a7c;
+    stroke-width: 2;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .card-fav:hover {
+    fill: #b49a7c99;
+  }
+  /* On checked favorite (just visual effect) - need JS to toggle real function if wanted */
+  .card-fav.checked {
+    fill: #b49a7ccc;
+  }
+  .card-content {
+    padding: 12px 18px 14px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .card-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  .card-text {
+    font-size: 0.785rem;
+    line-height: 1.15;
+    color: #746550;
+    margin-bottom: 8px;
+    min-height: 40px;
+  }
+  .card-price {
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.8px;
+  }
+  .card-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .card-button {
+    font-size: 0.75rem;
+    background-color: #3a2f2011;
+    border: none;
+    color: #3a2f20;
+    border-radius: 20px;
+    padding: 6px 11px;
+    box-shadow: 1px 3px 7px rgb(0 0 0 / 0.1);
+    transition: all 0.25s ease;
+  }
+  .card-button:hover {
+    background-color: #5b503f33;
+  }
+  /* Slider arrows */
+  .slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #5b503fbb;
+    background: #f1f0ecdd;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    box-shadow: 1px 1px 10px rgb(0 0 0 / 0.08);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    transition: background 0.3s ease;
+    font-weight: 700;
+    font-size: 22px;
+  }
+  .slider-arrow:hover {
+    background: #d6c8b4dd;
+    color: #3a2f20cc;
+  }
+  .slider-arrow.left {
+    left: 5px;
+    z-index: 2;
+  }
+  .slider-arrow.right {
+    right: 5px;
+    z-index: 2;
+  }
+  /* Slider section with arrows wrapper */
+  .slider-section {
+    position: relative;
+  }
+
+  /* Banner Section */
+  .banner {
+    background-color: #dfd4c5;
+    max-width: 1200px;
+    margin: 60px auto;
+    border-radius: 10px;
+    padding: 40px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    box-shadow: 0 10px 22px rgb(0 0 0 / 0.07);
+    text-align: center;
+  }
+  .banner h2 {
+    font-weight: 900;
+    font-size: 1.6rem;
+    max-width: 480px;
+    margin: 0;
+  }
+  .banner-button {
+    padding: 14px 30px;
+    background-color: #5b503f;
+    color: #dfd4c5;
+    border: none;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 1px 4px 15px rgb(0 0 0 / 0.15);
+    transition: background-color 0.3s ease;
+  }
+  .banner-button:hover {
+    background-color: #3a2f20;
+  }
+  /* Banner coffee beans images styling left and right */
+  .banner-image-left,
+  .banner-image-right {
+    max-width: 100px;
+    user-select:none;
+  }
+  .banner-image-left img,
+  .banner-image-right img {
+    display: block;
+    max-width: 100%;
+    border-radius: 6px;
+  }
+  /* Happy customers, testimonials */
+  .testimonial-section {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 20px 15px;
+  }
+  .testimonial-intro {
+    text-align: center;
+    font-style: italic;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #8c7f6d;
+    letter-spacing: 1.5px;
+    margin: 20px 0 8px;
+  }
+  .testimonial-header {
+    text-align: center;
+    font-weight: 900;
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+  }
+  .testimonial-cards {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    max-width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Each testimonial card */
+  .testimonial-card {
+    background-color: #f1f0ec;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 0.07);
+    max-width: 280px;
+    padding: 20px 20px 26px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .testimonial-header-inner {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .testimonial-photo {
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border: 2.5px solid #b49a7c;
+  }
+  .testimonial-name {
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  .testimonial-role {
+    font-size: 0.8rem;
+    color: #746550;
+  }
+  /* Stars rating */
+  .stars {
+    margin-left: auto;
+    color: #e6ab34;
+    font-size: 1.05rem;
+    user-select:none;
+  }
+  .testimonial-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #564c3a;
+    flex-grow: 1;
+    line-height: 1.25rem;
+  }
+  /* Testimonial dots below */
+  .testimonial-dots {
+    margin-top: 25px;
+    text-align: center;
+  }
+  .testimonial-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #b49a7c99;
+    border-radius: 50%;
+    margin: 0 7px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+  }
+  .testimonial-dot.active {
+    background-color: #b49a7c;
+  }
+  
+  /* Newsletter section */
+  .newsletter-section {
+    background-color: #d6c8b4;
+    max-width: 1200px;
+    padding: 45px 35px 60px;
+    margin: 60px auto 0;
+    border-radius: 10px;
+    box-shadow: inset -10px -10px 20px rgb(255 255 255 / 0.35), inset 8px 8px 12px rgb(0 0 0 / 0.06);
+    display: flex;
+    justify-content: center;
+  }
+  .newsletter-inner {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+  }
+  .newsletter-inner h3 {
+    font-weight: 900;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  .newsletter-inner p {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+  }
+  form.newsletter-form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  input[type=email] {
+    flex-grow: 1;
+    padding: 12px 16px;
+    border-radius: 32px;
+    border: none;
+    background-color: #f1f0ec;
+    font-weight: 500;
+    font-size: 1rem;
+    box-shadow: inset 2px 3px 5px rgb(0 0 0 / 0.08);
+    outline-offset: 2px;
+  }
+  input[type=email]::placeholder {
+    color: #746550dd;
+  }
+  input[type=email]:focus {
+    outline: 3px solid #b49a7c;
+  }
+  .newsletter-submit {
+    background-color: #3a2f20;
+    color: #dfd4c5;
+    border-radius: 32px;
+    padding: 12px 29px;
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    box-shadow: 2px 3px 9px rgb(0 0 0 / 0.18);
+    transition: background-color 0.3s ease;
+  }
+  .newsletter-submit:hover {
+    background-color: #5b503f;
+  }
+
+  /* Footer */
+  footer {
+    background-color: #3a2f20;
+    color: #d6c8b4;
+    font-size: 0.8rem;
+    line-height: 1.35;
+    padding: 48px 20px 37px;
+  }
+  footer .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  footer .footer-logo {
+    font-weight: 900;
+    font-size: 1.3rem;
+    letter-spacing: 7px;
+    margin-bottom: 28px;
+  }
+  .footer-col {
+    flex: 1 1 140px;
+    margin: 0 15px 24px 0;
+    min-width: 140px;
+    color: #d6c8b4cc;
+  }
+  .footer-col h4 {
+    font-weight: 900;
+    font-size: 1rem;
+    margin-bottom: 14px;
+    letter-spacing: 2.5px;
+  }
+  .footer-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .footer-col ul li {
+    margin-bottom: 9px;
+  }
+  .footer-col ul li a {
+    color: #d6c8b4cc;
+    transition: color 0.3s ease;
+  }
+  .footer-col ul li a:hover {
+    color: #b49a7c;
+  }
+  /* Social icons container */
+  .footer-social {
+    display: flex;
+    gap: 18px;
+  }
+  .footer-social a {
+    color: #d6c8b4cc;
+    transition: color 0.3s ease;
+    font-size: 1.3rem;
+    user-select:none;
+  }
+  .footer-social a:hover {
+    color: #b49a7c;
+  }
+  /* Responsive */
+  @media (max-width: 960px) {
+    .hero {
+      padding: 3rem 2rem 4rem;
+      margin: 20px auto 30px;
+      border-radius: 8px;
+    }
+    .hero-content h1 {
+      font-size: 2.3rem;
+    }
+    .slider-container {
+      padding: 20px;
+    }
+    .slider-arrow {
+      width: 28px;
+      height: 28px;
+      font-size: 18px;
+    }
+    .banner {
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 30px 25px;
+    }
+    .banner h2 {
+      max-width: 100%;
+      font-size: 1.4rem;
+    }
+    .banner-button {
+      width: 100%;
+    }
+    .banner-image-left,
+    .banner-image-right {
+      max-width: 70px;
+    }
+    .testimonial-cards {
+      overflow-x: auto;
+      gap: 12px;
+      max-width: 100%;
+    }
+    .testimonial-card {
+      min-width: 260px;
+      max-width: 260px;
+    }
+    nav ul {
+      gap: 15px;
+      font-size: 0.85rem;
+    }
+  }
+  @media (max-width: 560px) {
+    nav ul {
+      display: none;
+    }
+    .hero {
+      margin: 15px auto 25px;
+      border-radius: 6px;
+      padding: 3rem 15px 3rem;
+    }
+    .hero-content h1 {
+      font-size: 1.9rem;
+    }
+    .hero-content p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+    .icon-row {
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 280px;
+      margin: 0 auto 36px;
+    }
+    .icon-card {
+      max-width: none;
+      flex: 1 1 25%;
+      font-size: 0.75rem;
+    }
+    .slider-container {
+      padding: 15px 10px;
+    }
+    .banner {
+      flex-direction: column;
+      padding: 25px 15px;
+      gap: 16px;
+      max-width: 340px;
+      margin-bottom: 45px;
+    }
+    .testimonial-cards {
+      gap: 12px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+    }
+    .testimonial-card {
+      min-width: 240px;
+      max-width: 240px;
+      flex-shrink: 0;
+    }
+    footer .container {
+      flex-direction: column;
+      gap: 30px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .footer-col {
+      margin-bottom: 0;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="nav-inner" role="navigation" aria-label="Main navigation">
+    <div class="nav-logo" tabindex="0" aria-label="Coffee website brand name">COFFEE</div>
+    <nav>
+      <ul>
+        <li><a href="#" tabindex="0">Home</a></li>
+        <li><a href="#" tabindex="0">Coffee</a></li>
+        <li><a href="#" tabindex="0">Bakery</a></li>
+        <li><a href="#" tabindex="0">Shop</a></li>
+        <li><a href="#" tabindex="0">About</a></li>
+        <li><a href="#" tabindex="0">Login</a></li>
+      </ul>
+    </nav>
+    <div class="nav-search" role="button" tabindex="0" aria-label="Search site">🔍</div>
+  </div>
+</header>
+<main>
+  <section class="hero" aria-label="Hero section with coffee pouring latte art">
+    <div class="hero-content">
+      <p>Welcome!</p>
+      <h1>We serve the richest coffee in the city!</h1>
+      <button class="hero-button" aria-label="Order coffee now">Order Now</button>
+    </div>
+  </section>
+
+  <section class="icon-row" aria-label="Coffee types and dessert categories">
+    <div class="icon-card" role="img" aria-label="Hot Coffee icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 3h-2a4 4 0 0 0-4 4v3h10v-3a4 4 0 0 0-4-4zm0 2a2 2 0 1 1 0 4h-6V7a2 2 0 0 1 2-2zM6 15v2a4 4 0 0 0 8 0v-2H6zM4 15a2 2 0 0 0-2 2v1a1 1 0 0 0 2 0v-3zM2 14a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v1H2v-1z"/></svg>
+      <span>Hot Coffee</span>
+    </div>
+    <div class="icon-card" role="img" aria-label="Cold Coffee icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a3 3 0 0 1 0 6H7a3 3 0 0 1 0-6zm13 13a4 4 0 1 0-8 0h-2.5a.5.5 0 0 0 0 1H12v6a1 1 0 1 0 2 0v-6h6v-1h-2z"/></svg>
+      <span>Cold Coffee</span>
+    </div>
+    <div class="icon-card" role="img" aria-label="Cup Coffee icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2a6 6 0 0 0 0 12h6a6 6 0 0 0 0-12H8zm9 11a3 3 0 0 1 0 6H7a3 3 0 0 1 0-6h10z"/></svg>
+      <span>Cup Coffee</span>
+    </div>
+    <div class="icon-card" role="img" aria-label="Dessert icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16v2H3v-2a7.99 7.99 0 0 1 7-7.93V5a4 4 0 0 1 8 0v3.07A7.99 7.99 0 0 1 21 16zM15 5a2 2 0 0 0-4 0v1H7.47A7.004 7.004 0 0 0 8 14h8a7.004 7.004 0 0 0 .53-7H15V5z"/></svg>
+      <span>Dessert</span>
+    </div>
+  </section>
+
+  <section class="slider-section" aria-labelledby="special-coffee-title">
+    <h2 id="special-coffee-title" class="section-title">Our Special Coffee</h2>
+    <button aria-label="Scroll left in coffee slider" class="slider-arrow left" onclick="slideLeft('coffee-slider')">‹</button>
+    <div class="slider-container" tabindex="0" aria-roledescription="carousel" aria-label="Special coffee products">
+      <div id="coffee-slider" class="slider-wrapper" role="list">
+        <article role="listitem" class="card">
+          <div class="card-img-container">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6e310355-97b8-4200-8613-0c48d351cd97.png" alt="Lungo Coffee in a clear glass cup topped with creamy foam, warm brown wooden background" />
+            <svg tabindex="0" aria-label="Add Lungo Coffee to favorites" role="button" class="card-fav" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="none" fill="none"/></svg>
+          </div>
+          <div class="card-content">
+            <div>
+              <div class="card-title">Lungo Coffee</div>
+              <p class="card-text">An espresso double shot, topped with a trivet</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Rs. 199</span>
+              <button class="card-button" aria-label="Order Lungo Coffee">Order Now</button>
+            </div>
+          </div>
+        </article>
+        <article role="listitem" class="card">
+          <div class="card-img-container">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/dd6d1758-336d-4c95-a368-97d2f20be29c.png" alt="Dalgona Coffee glass with whipped foam topping and powdered chocolate sprinkled on top, rustic kitchen background" />
+            <svg tabindex="0" aria-label="Add Dalgona Coffee to favorites" role="button" class="card-fav" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="none" fill="none"/></svg>
+          </div>
+          <div class="card-content">
+            <div>
+              <div class="card-title">Dalgona Coffee</div>
+              <p class="card-text">Whipped coffee made using instant coffee</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Rs. 159</span>
+              <button class="card-button" aria-label="Order Dalgona Coffee">Order Now</button>
+            </div>
+          </div>
+        </article>
+        <article role="listitem" class="card">
+          <div class="card-img-container">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/39ec85d0-9931-480b-b35e-09dfb3e05e60.png" alt="Iced Coffee in tall glass with ice cubes floating and dark coffee swirls, wooden table background" />
+            <svg tabindex="0" aria-label="Add Iced Coffee to favorites" role="button" class="card-fav" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="none" fill="none"/></svg>
+          </div>
+          <div class="card-content">
+            <div>
+              <div class="card-title">Iced Coffee</div>
+              <p class="card-text">Iced coffee is a coffee beverage served cold</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Rs. 149</span>
+              <button class="card-button" aria-label="Order Iced Coffee">Order Now</button>
+            </div>
+          </div>
+        </article>
+        <article role="listitem" class="card">
+          <div class="card-img-container">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3255b875-aedb-42f3-b36f-cd8f0ad7b7d6.png" alt="Filter Coffee being poured, showing frothy creamy golden top, surrounded by coffee beans" />
+            <svg tabindex="0" aria-label="Add Filter Coffee to favorites" role="button" class="card-fav" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="none" fill="none"/></svg>
+          </div>
+          <div class="card-content">
+            <div>
+              <div class="card-title">Filter Coffee</div>
+              <p class="card-text">Hot coffee art of 70% chicory frothy roasted</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Rs. 59</span>
+              <button class="card-button" aria-label="Order Filter Coffee">Order Now</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <button aria-label="Scroll right in coffee slider" class="slider-arrow right" onclick="slideRight('coffee-slider')">›</button>
+  </section>
+
+  <section class="slider-section" aria-labelledby="special-dessert-title">
+    <h2 id="special-dessert-title" class="section-title">Our Special Dessert</h2>
+    <button aria-label="Scroll left in dessert slider" class="slider-arrow left" onclick="slideLeft('dessert-slider')">‹</button>
+    <div class="slider-container" tabindex="0" aria-roledescription="carousel" aria-label="Special dessert products">
+      <div id="dessert-slider" class="slider-wrapper" role="list">
+        <article role="listitem" class="card">
+          <div class="card-img-container">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b0dbeaf2-4ad2-4893-bfd7-e0517e7ba64d.png" alt="Gulab Jamun brown round dessert balls served in a rustic bowl with syrup and spoon" />
+            <svg tabindex="0" aria-label="Add Gulab Jamun to favorites" role="button" class="card-fav" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="none" fill="none"/></svg>
+          </div>
+          <div class="card-content">
+            <div>
+              <div class="card-title">Gulab Jamun</div>
+              <p class="card-text">Made with milk solids, sugar, rose water & card</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Rs. 199</span>
+              <button class="card-button" aria-label="Order Gulab Jamun">Order Now</button>
+            </div>
+          </div>
+        </article>
+        <article role="listitem" class="card">
+          <div class="card-img-container">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8f383095-0166-408e-bf9c-a9a0db5d7d44.png" alt="Chocolate Tiramisu dessert glass with layers of creamy mascarpone, chocolate, and ladyfingers, dark background" />
+            <svg tabindex="0" aria-label="Add Chocolate Tiramisu to favorites" role="button" class="card-fav" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="none" fill="none"/></svg>
+          </div>
+          <div class="card-content">
+            <div>
+              <div class="card-title">Chocolate Tiramisu</div>
+              <p class="card-text">Made with layers of mascarpone cream, choc</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Rs. 250</span>
+              <button class="card-button" aria-label="Order Chocolate Tiramisu">Order Now</button>
+            </div>
+          </div>
+        </article>
+        <article role="listitem" class="card">
+          <div class="card-img-container">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1710b4e6-3f5c-4661-ba1a-a35ab9d2419c.png" alt="Plate of golden churros with bitter-sweet chocolate dipping sauce and cacao beans" />
+            <svg tabindex="0" aria-label="Add Churros to favorites" role="button" class="card-fav" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="none" fill="none"/></svg>
+          </div>
+          <div class="card-content">
+            <div>
+              <div class="card-title">Churros</div>
+              <p class="card-text">Hot chocolate made with bittersweet chocolate</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Rs. 170</span>
+              <button class="card-button" aria-label="Order Churros">Order Now</button>
+            </div>
+          </div>
+        </article>
+        <article role="listitem" class="card">
+          <div class="card-img-container">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5d728216-9745-4f51-b9b7-0e23f2290f08.png" alt="Australian Lamingtons, square sponge cakes coated with chocolate and coconut, arranged on rustic wooden tray with scattered coconut flakes" />
+            <svg tabindex="0" aria-label="Add Australian Lamingtons to favorites" role="button" class="card-fav" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="none" fill="none"/></svg>
+          </div>
+          <div class="card-content">
+            <div>
+              <div class="card-title">Australian Lamingtons</div>
+              <p class="card-text">Made With A Delicious Sponge Cake</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Rs. 280</span>
+              <button class="card-button" aria-label="Order Australian Lamingtons">Order Now</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <button aria-label="Scroll right in dessert slider" class="slider-arrow right" onclick="slideRight('dessert-slider')">›</button>
+  </section>
+
+  <section class="banner" aria-label="Banner section promoting best coffee beans">
+    <div class="banner-image-left" aria-hidden="true">
+      <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7ef6286e-4d40-4453-8f37-1a734cd6f486.png" alt="Closeup photo of two hands holding and pouring roasted coffee beans, warm natural lighting" onerror="this.style.display='none'" />
+    </div>
+    <h2>Check out our best coffee betans</h2>
+    <button class="banner-button" aria-label="Explore our coffee bean products">Explore our products >></button>
+    <div class="banner-image-right" aria-hidden="true">
+      <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b7be85ee-c61a-4566-80be-3e73c89bcc46.png" alt="Closeup photo of roasted coffee beans pouring from the top right corner with natural shadows" onerror="this.style.display='none'" />
+    </div>
+  </section>
+
+  <section class="testimonial-section" aria-label="Customer testimonials">
+    <p class="testimonial-intro">Come and join</p>
+    <h2 class="testimonial-header">Our Happy Customers</h2>
+    <div class="testimonial-cards" aria-live="polite" aria-atomic="true" id="testimonial-carousel">
+      <article class="testimonial-card" aria-label="Testimonial from Jane Adams, Owner">
+        <div class="testimonial-header-inner">
+          <img class="testimonial-photo" src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4dbdbf6b-d92e-490a-a75f-e24597b24189.png" alt="Photo of Jane Adams Owner" />
+          <div>
+            <div class="testimonial-name">Jane Adams</div>
+            <div class="testimonial-role">Owner</div>
+          </div>
+          <div class="stars" aria-label="5 star rating" role="img">★★★★★</div>
+        </div>
+        <p class="testimonial-text">I dropped by to have a cappuccino and honestly; after 30 days here we did not have high expectations, but if this cappuccino was served, I would be just as satisfied great place with perfectly normal prices that I recommend.</p>
+      </article>
+      <article class="testimonial-card" aria-label="Testimonial from Sam Williams, Entrepreneur" hidden>
+        <div class="testimonial-header-inner">
+          <img class="testimonial-photo" src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f015883c-f77d-4ed0-91a3-46b2f0c07e61.png" alt="Photo of Sam Williams entrepreneur" />
+          <div>
+            <div class="testimonial-name">Sam Williams</div>
+            <div class="testimonial-role">Entrepreneur</div>
+          </div>
+          <div class="stars" aria-label="5 star rating" role="img">★★★★★</div>
+        </div>
+        <p class="testimonial-text">I've been ordering beans from you for ten years, the quality of the product is consistently high! I'm grateful for the care that is apparently put into the roasts and the excellent customer service, your beans give way to the best cups of coffee.</p>
+      </article>
+      <article class="testimonial-card" aria-label="Testimonial from Angela Gonzales, Manager" hidden>
+        <div class="testimonial-header-inner">
+          <img class="testimonial-photo" src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/285c1c05-f012-4b89-bd67-6f97dd664cae.png" alt="Photo of Angela Gonzales manager" />
+          <div>
+            <div class="testimonial-name">Angela Gonzales</div>
+            <div class="testimonial-role">Manager</div>
+          </div>
+          <div class="stars" aria-label="5 star rating" role="img">★★★★★</div>
+        </div>
+        <p class="testimonial-text">I've been ordering beans from you for ten years, the quality of the product is consistently high! I'm grateful for the care that is apparently put into the roasts and the excellent customer service, your beans give way to the best cups of coffee.</p>
+      </article>
+    </div>
+    <div class="testimonial-dots" role="tablist" aria-label="Testimonial carousel navigation">
+      <button class="testimonial-dot active" role="tab" aria-selected="true" aria-controls="testimonial1" id="tab1" tabindex="0" aria-label="Show testimonial 1" onclick="showTestimonial(0)"></button>
+      <button class="testimonial-dot" role="tab" aria-selected="false" aria-controls="testimonial2" id="tab2" tabindex="-1" aria-label="Show testimonial 2" onclick="showTestimonial(1)"></button>
+      <button class="testimonial-dot" role="tab" aria-selected="false" aria-controls="testimonial3" id="tab3" tabindex="-1" aria-label="Show testimonial 3" onclick="showTestimonial(2)"></button>
+    </div>
+  </section>
+
+  <section class="newsletter-section" aria-label="Subscribe to our newsletter for discount">
+    <div class="newsletter-inner">
+      <h3>Join in and get 15% Off!</h3>
+      <p>Subscribe to our newsletter and get 15% off discount code.</p>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');" aria-describedby="email-desc">
+        <input type="email" name="email" placeholder="Email address" aria-required="true" aria-describedby="email-desc" required />
+        <button type="submit" class="newsletter-submit">Subscribe</button>
+      </form>
+      <div id="email-desc" hidden>Please enter your email address to subscribe to our newsletter</div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <div class="footer-logo" tabindex="0" aria-label="Coffee brand logo">COFFEE</div>
+    <nav aria-label="Footer navigation privacy policies">
+      <div class="footer-col" role="list" aria-label="Privacy links">
+        <h4>Privacy</h4>
+        <ul>
+          <li><a href="#" tabindex="0">Terms of use</a></li>
+          <li><a href="#" tabindex="0">Privacy policy</a></li>
+          <li><a href="#" tabindex="0">Cookies</a></li>
+        </ul>
+      </div>
+    </nav>
+    <nav aria-label="Footer navigation services">
+      <div class="footer-col" role="list" aria-label="Services links">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#" tabindex="0">Shop</a></li>
+          <li><a href="#" tabindex="0">Order ahead</a></li>
+          <li><a href="#" tabindex="0">Menu</a></li>
+        </ul>
+      </div>
+    </nav>
+    <nav aria-label="Footer navigation about us">
+      <div class="footer-col" role="list" aria-label="About us links">
+        <h4>About Us</h4>
+        <ul>
+          <li><a href="#" tabindex="0">Find a location</a></li>
+          <li><a href="#" tabindex="0">About us</a></li>
+          <li><a href="#" tabindex="0">Our story</a></li>
+        </ul>
+      </div>
+    </nav>
+    <nav aria-label="Footer navigation information">
+      <div class="footer-col" role="list" aria-label="Information links">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="#" tabindex="0">Rates & pricing</a></li>
+          <li><a href="#" tabindex="0">Sell your products</a></li>
+          <li><a href="#" tabindex="0">Jobs</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="footer-col" aria-label="Social media links" role="list">
+      <h4>Social Media</h4>
+      <div class="footer-social">
+        <a href="#" aria-label="Twitter" tabindex="0" role="listitem" title="Twitter" aria-hidden="false">🐦</a>
+        <a href="#" aria-label="Facebook" tabindex="0" role="listitem" title="Facebook" aria-hidden="false">📘</a>
+        <a href="#" aria-label="Instagram" tabindex="0" role="listitem" title="Instagram" aria-hidden="false">📸</a>
+        <a href="#" aria-label="LinkedIn" tabindex="0" role="listitem" title="LinkedIn" aria-hidden="false">💼</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Card favorite toggles
+  document.querySelectorAll('.card-fav').forEach(fav => {
+    fav.addEventListener('click', () => {
+      fav.classList.toggle('checked');
+      if (fav.getAttribute('aria-checked') === 'true') {
+        fav.setAttribute('aria-checked', 'false');
+      } else {
+        fav.setAttribute('aria-checked', 'true');
+      }
+    });
+  });
+
+  // Slider arrows scroll function
+  function slideLeft(id) {
+    const container = document.getElementById(id);
+    container.scrollBy({ left: -240, behavior: 'smooth' });
+  }
+  function slideRight(id) {
+    const container = document.getElementById(id);
+    container.scrollBy({ left: 240, behavior: 'smooth' });
+  }
+
+  // Testimonial carousel logic
+  let currentTestimonial = 0;
+  const testimonials = document.querySelectorAll('.testimonial-card');
+  const dots = document.querySelectorAll('.testimonial-dot');
+
+  function showTestimonial(index) {
+    if (index < 0 || index >= testimonials.length) return;
+    testimonials[currentTestimonial].hidden = true;
+    dots[currentTestimonial].classList.remove('active');
+    dots[currentTestimonial].setAttribute('aria-selected', 'false');
+    dots[currentTestimonial].setAttribute('tabindex', '-1');
+
+    testimonials[index].hidden = false;
+    dots[index].classList.add('active');
+    dots[index].setAttribute('aria-selected', 'true');
+    dots[index].setAttribute('tabindex', '0');
+    dots[index].focus();
+    currentTestimonial = index;
+  }
+</script>
+</body>
+</html>
+
